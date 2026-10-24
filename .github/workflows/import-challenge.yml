@@ -1,0 +1,38 @@
+name: Import original challenge files
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/import-challenge.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out this repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Copy the original challenge repository
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 https://github.com/interviewstreet/hackerrank-orchestrate-october26.git /tmp/original-challenge
+          rm -f code/README.md code/evaluation/README.md dataset/README.md
+          rsync -a --exclude='.git' /tmp/original-challenge/ ./
+          rm -f .github/workflows/import-challenge.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No import changes detected."
+          else
+            git commit -m "Import complete original challenge source and evidence"
+            git push origin HEAD:main
+          fi
