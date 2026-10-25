@@ -1,770 +1,1047 @@
 {
-  "requests_file": "/app/applet/dataset/deletion_requests.csv",
-  "output_file": "/app/applet/output.csv",
+  "requests_file": "/workspace/dataset/deletion_requests.csv",
+  "output_file": "/workspace/output.csv",
   "total_requests": 518,
   "status_counts": {
-    "INCOMPLETE": 353,
-    "COMPLETE": 155,
+    "INCOMPLETE": 364,
+    "COMPLETE": 144,
     "NOT_APPLICABLE": 10
   },
-  "evidence_files_inspected": 94,
-  "identities_loaded": 850,
-  "audit_logs_loaded": 306,
-  "system_activities_loaded": 4011,
-  "deletion_rules_loaded": 15,
-  "elapsed_seconds": 0.96,
-  "inspected_files": [
+  "evidence_files": 94,
+  "observations": 3157,
+  "elapsed_seconds": 0.658,
+  "counts": {
+    "identities": 850,
+    "audit_rows": 306,
+    "activity_rows": 4011,
+    "rules": 15
+  },
+  "file_reports": [
     {
       "file_id": "evidence_01",
       "file_path": "evidence/logs/service_events_ap_south_20260915.log",
-      "format": "log",
       "captured_at": "2026-09-15T11:59:39Z",
-      "status": "inspected",
-      "observations_extracted": 36
+      "format": "log",
+      "status": "parsed",
+      "detail": "",
+      "observations": 36
     },
     {
       "file_id": "evidence_02",
       "file_path": "evidence/records/customer_data_snapshot_bundle_20260917.json",
-      "format": "json",
       "captured_at": "2026-09-17T12:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 41
+      "format": "json",
+      "status": "parsed",
+      "detail": "",
+      "observations": 41
     },
     {
       "file_id": "evidence_03",
       "file_path": "evidence/records/customer_account_handover_20261001.txt",
-      "format": "txt",
       "captured_at": "2026-10-01T12:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 41
+      "format": "txt",
+      "status": "parsed",
+      "detail": "",
+      "observations": 41
     },
     {
       "file_id": "evidence_04",
       "file_path": "evidence/images/account_admin_console_20260926.png",
-      "format": "png",
       "captured_at": "2026-09-26T11:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 2
+      "format": "png",
+      "status": "parsed",
+      "detail": "",
+      "observations": 1
     },
     {
       "file_id": "evidence_05",
       "file_path": "evidence/databases/customer_data_read_replica_20260921.sql",
-      "format": "sql",
       "captured_at": "2026-09-21T10:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 61
+      "format": "sql",
+      "status": "parsed",
+      "detail": "",
+      "observations": 61
     },
     {
       "file_id": "evidence_06",
       "file_path": "evidence/logs/structured_service_events_eu_west_20260918.log",
-      "format": "log",
       "captured_at": "2026-09-18T11:55:24Z",
-      "status": "inspected",
-      "observations_extracted": 37
+      "format": "log",
+      "status": "parsed",
+      "detail": "",
+      "observations": 37
     },
     {
       "file_id": "evidence_07",
       "file_path": "evidence/records/customer_data_snapshot_bundle_20260913.json",
-      "format": "json",
       "captured_at": "2026-09-13T08:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 30
+      "format": "json",
+      "status": "parsed",
+      "detail": "",
+      "observations": 30
     },
     {
       "file_id": "evidence_08",
       "file_path": "evidence/logs/search_index_diagnostic_20260906.log",
-      "format": "log",
       "captured_at": "2026-09-06T07:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 36
+      "format": "log",
+      "status": "parsed",
+      "detail": "",
+      "observations": 36
     },
     {
       "file_id": "evidence_09",
       "file_path": "evidence/images/search_index_inspector_20260901.png",
-      "format": "png",
       "captured_at": "2026-09-01T06:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 1
+      "format": "png",
+      "status": "parsed",
+      "detail": "",
+      "observations": 1
     },
     {
       "file_id": "evidence_10",
       "file_path": "evidence/databases/customer_data_read_replica_20260827.sql",
-      "format": "sql",
       "captured_at": "2026-08-27T12:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 59
+      "format": "sql",
+      "status": "parsed",
+      "detail": "",
+      "observations": 59
     },
     {
       "file_id": "evidence_11",
       "file_path": "evidence/logs/syslog_archive_us_east_20260824.log",
-      "format": "log",
       "captured_at": "2026-08-24T13:56:43Z",
-      "status": "inspected",
-      "observations_extracted": 36
+      "format": "log",
+      "status": "parsed",
+      "detail": "",
+      "observations": 36
     },
     {
       "file_id": "evidence_12",
       "file_path": "evidence/records/customer_data_snapshot_bundle_20260819.json",
-      "format": "json",
       "captured_at": "2026-08-19T10:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 29
+      "format": "json",
+      "status": "parsed",
+      "detail": "",
+      "observations": 29
     },
     {
       "file_id": "evidence_13",
       "file_path": "evidence/records/connector_configurations_20260812.json",
-      "format": "json",
       "captured_at": "2026-08-12T09:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 39
+      "format": "json",
+      "status": "parsed",
+      "detail": "",
+      "observations": 39
     },
     {
       "file_id": "evidence_14",
       "file_path": "evidence/images/connector_management_console_20260807.png",
-      "format": "png",
       "captured_at": "2026-08-07T08:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 2
+      "format": "png",
+      "status": "parsed",
+      "detail": "",
+      "observations": 1
     },
     {
       "file_id": "evidence_15",
       "file_path": "evidence/databases/customer_data_read_replica_20260802.sql",
-      "format": "sql",
       "captured_at": "2026-08-02T07:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 49
+      "format": "sql",
+      "status": "parsed",
+      "detail": "",
+      "observations": 49
     },
     {
       "file_id": "evidence_16",
       "file_path": "evidence/logs/application_trace_ap_northeast_20260730.log",
-      "format": "log",
       "captured_at": "2026-07-30T08:53:12Z",
-      "status": "inspected",
-      "observations_extracted": 36
+      "format": "log",
+      "status": "parsed",
+      "detail": "",
+      "observations": 36
     },
     {
       "file_id": "evidence_17",
       "file_path": "evidence/records/customer_data_snapshot_bundle_20260725.json",
-      "format": "json",
       "captured_at": "2026-07-25T15:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 36
+      "format": "json",
+      "status": "parsed",
+      "detail": "",
+      "observations": 36
     },
     {
       "file_id": "evidence_18",
       "file_path": "evidence/documents/account_history_report_20260718.pdf",
-      "format": "pdf",
       "captured_at": "2026-07-18T11:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 1
+      "format": "pdf",
+      "status": "parsed",
+      "detail": "",
+      "observations": 1
     },
     {
       "file_id": "evidence_19",
       "file_path": "evidence/images/analytics_profile_view_20260713.png",
-      "format": "png",
       "captured_at": "2026-07-13T10:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 1
+      "format": "png",
+      "status": "parsed",
+      "detail": "",
+      "observations": 1
     },
     {
       "file_id": "evidence_20",
       "file_path": "evidence/databases/customer_data_read_replica_20260708.sql",
-      "format": "sql",
       "captured_at": "2026-07-08T09:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 63
+      "format": "sql",
+      "status": "parsed",
+      "detail": "",
+      "observations": 63
     },
     {
       "file_id": "evidence_21",
       "file_path": "evidence/logs/operations_stream_eu_central_20260705.log",
-      "format": "log",
       "captured_at": "2026-07-05T07:54:27Z",
-      "status": "inspected",
-      "observations_extracted": 40
+      "format": "log",
+      "status": "parsed",
+      "detail": "",
+      "observations": 41
     },
     {
       "file_id": "evidence_22",
       "file_path": "evidence/records/customer_data_snapshot_bundle_20260630.json",
-      "format": "json",
       "captured_at": "2026-06-30T07:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 29
+      "format": "json",
+      "status": "parsed",
+      "detail": "",
+      "observations": 71
     },
     {
       "file_id": "evidence_23",
       "file_path": "evidence/images/customer_export_console_20260618.png",
-      "format": "png",
       "captured_at": "2026-06-18T12:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 1
+      "format": "png",
+      "status": "parsed",
+      "detail": "",
+      "observations": 1
     },
     {
       "file_id": "evidence_24",
       "file_path": "evidence/databases/customer_data_read_replica_20260613.sql",
-      "format": "sql",
       "captured_at": "2026-06-13T11:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 50
+      "format": "sql",
+      "status": "parsed",
+      "detail": "",
+      "observations": 50
     },
     {
       "file_id": "evidence_25",
       "file_path": "evidence/logs/cloud_runtime_export_us_west_20260608.log",
-      "format": "log",
       "captured_at": "2026-06-08T09:58:28Z",
-      "status": "inspected",
-      "observations_extracted": 43
+      "format": "log",
+      "status": "parsed",
+      "detail": "",
+      "observations": 43
     },
     {
       "file_id": "evidence_26",
       "file_path": "evidence/records/customer_data_snapshot_bundle_20260605.json",
-      "format": "json",
       "captured_at": "2026-06-05T12:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 32
+      "format": "json",
+      "status": "parsed",
+      "detail": "",
+      "observations": 32
     },
     {
       "file_id": "evidence_27",
       "file_path": "evidence/documents/legal_retention_register_20260529.pdf",
-      "format": "pdf",
       "captured_at": "2026-05-29T08:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 0
+      "format": "pdf",
+      "status": "parsed",
+      "detail": "no observations extracted",
+      "observations": 0
     },
     {
       "file_id": "evidence_28",
       "file_path": "evidence/images/support_ticket_console_20260524.png",
-      "format": "png",
       "captured_at": "2026-05-24T07:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 1
+      "format": "png",
+      "status": "parsed",
+      "detail": "",
+      "observations": 1
     },
     {
       "file_id": "evidence_29",
       "file_path": "evidence/databases/customer_data_regional_replicas_20260519.sql",
-      "format": "sql",
       "captured_at": "2026-05-19T06:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 85
+      "format": "sql",
+      "status": "parsed",
+      "detail": "",
+      "observations": 85
     },
     {
       "file_id": "evidence_30",
       "file_path": "evidence/logs/service_events_sa_east_20260516.log",
-      "format": "log",
       "captured_at": "2026-05-16T11:58:25Z",
-      "status": "inspected",
-      "observations_extracted": 38
+      "format": "log",
+      "status": "parsed",
+      "detail": "",
+      "observations": 38
     },
     {
       "file_id": "evidence_31",
       "file_path": "evidence/records/customer_data_snapshot_bundle_20260511.json",
-      "format": "json",
       "captured_at": "2026-05-11T11:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 35
+      "format": "json",
+      "status": "parsed",
+      "detail": "",
+      "observations": 74
     },
     {
       "file_id": "evidence_32",
       "file_path": "evidence/images/backup_restore_console_20260429.png",
-      "format": "png",
       "captured_at": "2026-04-29T09:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 1
+      "format": "png",
+      "status": "parsed",
+      "detail": "",
+      "observations": 1
     },
     {
       "file_id": "evidence_33",
       "file_path": "evidence/databases/customer_data_regional_replicas_20260424.sql",
-      "format": "sql",
       "captured_at": "2026-04-24T08:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 89
+      "format": "sql",
+      "status": "parsed",
+      "detail": "",
+      "observations": 89
     },
     {
       "file_id": "evidence_34",
       "file_path": "evidence/logs/structured_service_events_ca_central_20260419.log",
-      "format": "log",
       "captured_at": "2026-04-19T06:59:43Z",
-      "status": "inspected",
-      "observations_extracted": 44
+      "format": "log",
+      "status": "parsed",
+      "detail": "",
+      "observations": 44
     },
     {
       "file_id": "evidence_35",
       "file_path": "evidence/records/customer_data_snapshot_bundle_20260416.json",
-      "format": "json",
       "captured_at": "2026-04-16T06:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 28
+      "format": "json",
+      "status": "parsed",
+      "detail": "",
+      "observations": 28
     },
     {
       "file_id": "evidence_36",
       "file_path": "evidence/records/customer_export_manifest_20260409.json",
-      "format": "json",
       "captured_at": "2026-04-09T12:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 46
+      "format": "json",
+      "status": "parsed",
+      "detail": "",
+      "observations": 46
     },
     {
       "file_id": "evidence_37",
       "file_path": "evidence/images/security_audit_explorer_20260905.png",
-      "format": "png",
       "captured_at": "2026-09-05T07:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 1
+      "format": "png",
+      "status": "parsed",
+      "detail": "",
+      "observations": 1
     },
     {
       "file_id": "evidence_38",
       "file_path": "evidence/databases/customer_data_regional_replicas_20260330.sql",
-      "format": "sql",
       "captured_at": "2026-03-30T10:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 85
+      "format": "sql",
+      "status": "parsed",
+      "detail": "",
+      "observations": 85
     },
     {
       "file_id": "evidence_39",
       "file_path": "evidence/logs/syslog_archive_ap_southeast_20260325.log",
-      "format": "log",
       "captured_at": "2026-03-25T08:59:44Z",
-      "status": "inspected",
-      "observations_extracted": 40
+      "format": "log",
+      "status": "parsed",
+      "detail": "",
+      "observations": 40
     },
     {
       "file_id": "evidence_40",
       "file_path": "evidence/records/customer_data_snapshot_bundle_20260322.json",
-      "format": "json",
       "captured_at": "2026-03-22T08:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 31
+      "format": "json",
+      "status": "parsed",
+      "detail": "",
+      "observations": 31
     },
     {
       "file_id": "evidence_41",
       "file_path": "evidence/logs/notification_delivery_20260315.log",
-      "format": "log",
       "captured_at": "2026-03-15T07:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 39
+      "format": "log",
+      "status": "parsed",
+      "detail": "",
+      "observations": 39
     },
     {
       "file_id": "evidence_42",
       "file_path": "evidence/images/deleted_account_reference_20260310.png",
-      "format": "png",
       "captured_at": "2026-03-10T06:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 1
+      "format": "png",
+      "status": "parsed",
+      "detail": "",
+      "observations": 1
     },
     {
       "file_id": "evidence_43",
       "file_path": "evidence/databases/customer_data_reporting_replica_20260305.sql",
-      "format": "sql",
       "captured_at": "2026-03-05T12:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 51
+      "format": "sql",
+      "status": "parsed",
+      "detail": "",
+      "observations": 51
     },
     {
       "file_id": "evidence_44",
       "file_path": "evidence/logs/application_trace_eu_north_20260302.log",
-      "format": "log",
       "captured_at": "2026-03-02T10:59:23Z",
-      "status": "inspected",
-      "observations_extracted": 41
+      "format": "log",
+      "status": "parsed",
+      "detail": "",
+      "observations": 41
     },
     {
       "file_id": "evidence_45",
       "file_path": "evidence/records/customer_data_snapshot_bundle_20260223.json",
-      "format": "json",
       "captured_at": "2026-02-23T10:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 32
+      "format": "json",
+      "status": "parsed",
+      "detail": "",
+      "observations": 75
     },
     {
       "file_id": "evidence_46",
       "file_path": "evidence/images/object_storage_browser_20260213.png",
-      "format": "png",
       "captured_at": "2026-02-13T08:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 1
+      "format": "png",
+      "status": "parsed",
+      "detail": "",
+      "observations": 1
     },
     {
       "file_id": "evidence_47",
       "file_path": "evidence/databases/customer_data_reporting_replica_20260208.sql",
-      "format": "sql",
       "captured_at": "2026-02-08T07:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 49
+      "format": "sql",
+      "status": "parsed",
+      "detail": "",
+      "observations": 49
     },
     {
       "file_id": "evidence_48",
       "file_path": "evidence/logs/operations_stream_me_central_20260203.log",
-      "format": "log",
       "captured_at": "2026-02-03T05:59:42Z",
-      "status": "inspected",
-      "observations_extracted": 36
+      "format": "log",
+      "status": "parsed",
+      "detail": "",
+      "observations": 36
     },
     {
       "file_id": "evidence_49",
       "file_path": "evidence/records/customer_data_snapshot_bundle_20260131.json",
-      "format": "json",
       "captured_at": "2026-01-31T15:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 34
+      "format": "json",
+      "status": "parsed",
+      "detail": "",
+      "observations": 34
     },
     {
       "file_id": "evidence_50",
       "file_path": "evidence/records/security_audit_ledger_20261001.json",
-      "format": "json",
       "captured_at": "2026-10-01T12:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 20
+      "format": "json",
+      "status": "parsed",
+      "detail": "",
+      "observations": 20
     },
     {
       "file_id": "evidence_51",
       "file_path": "evidence/records/customer_data_snapshot_bundle_20260915.json",
-      "format": "json",
       "captured_at": "2026-09-15T12:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 4
+      "format": "json",
+      "status": "parsed",
+      "detail": "",
+      "observations": 4
     },
     {
       "file_id": "evidence_52",
       "file_path": "evidence/databases/customer_data_failover_replica_20260920.sql",
-      "format": "sql",
       "captured_at": "2026-09-20T12:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 32
+      "format": "sql",
+      "status": "parsed",
+      "detail": "",
+      "observations": 32
     },
     {
       "file_id": "evidence_53",
       "file_path": "evidence/logs/cloud_runtime_export_af_south_20260930.log",
-      "format": "log",
       "captured_at": "2026-09-30T11:59:44Z",
-      "status": "inspected",
-      "observations_extracted": 300
+      "format": "log",
+      "status": "parsed",
+      "detail": "",
+      "observations": 300
     },
     {
       "file_id": "evidence_54",
       "file_path": "evidence/databases/customer_accounts_failover_replica_20260902.sql",
-      "format": "sql",
       "captured_at": "2026-09-02T23:00:00Z",
-      "status": "inspected",
-      "observations_extracted": 4
+      "format": "sql",
+      "status": "parsed",
+      "detail": "",
+      "observations": 7
     },
     {
       "file_id": "evidence_55",
       "file_path": "evidence/documents/security_retention_extract.pdf",
-      "format": "pdf",
       "captured_at": "2026-09-05T06:30:00Z",
-      "status": "inspected",
-      "observations_extracted": 1
+      "format": "pdf",
+      "status": "parsed",
+      "detail": "",
+      "observations": 1
     },
     {
       "file_id": "evidence_56",
       "file_path": "evidence/records/customer_analytics_report_20260907.json",
-      "format": "json",
       "captured_at": "2026-09-07T09:45:00Z",
-      "status": "inspected",
-      "observations_extracted": 2
+      "format": "json",
+      "status": "parsed",
+      "detail": "",
+      "observations": 2
     },
     {
       "file_id": "evidence_57",
       "file_path": "evidence/databases/customer_search_primary_20260910.sql",
-      "format": "sql",
       "captured_at": "2026-09-10T08:45:00Z",
-      "status": "inspected",
-      "observations_extracted": 3
+      "format": "sql",
+      "status": "parsed",
+      "detail": "",
+      "observations": 3
     },
     {
       "file_id": "evidence_58",
       "file_path": "evidence/documents/delivery_correction_attachment.pdf",
-      "format": "pdf",
       "captured_at": "2026-09-12T07:30:00Z",
-      "status": "inspected",
-      "observations_extracted": 1
+      "format": "pdf",
+      "status": "parsed",
+      "detail": "",
+      "observations": 1
     },
     {
       "file_id": "evidence_59",
       "file_path": "evidence/records/customer_export_jobs_20260914.json",
-      "format": "json",
       "captured_at": "2026-09-14T15:40:00Z",
-      "status": "inspected",
-      "observations_extracted": 1
+      "format": "json",
+      "status": "parsed",
+      "detail": "",
+      "observations": 2
     },
     {
       "file_id": "evidence_60",
       "file_path": "evidence/images/marketing_profile_console.png",
-      "format": "png",
       "captured_at": "2026-09-16T07:20:00Z",
-      "status": "inspected",
-      "observations_extracted": 1
+      "format": "png",
+      "status": "parsed",
+      "detail": "",
+      "observations": 1
     },
     {
       "file_id": "evidence_61",
       "file_path": "evidence/logs/support_replica.log",
-      "format": "log",
       "captured_at": "2026-09-17T22:00:19Z",
-      "status": "inspected",
-      "observations_extracted": 1
+      "format": "log",
+      "status": "parsed",
+      "detail": "",
+      "observations": 3
     },
     {
       "file_id": "evidence_62",
       "file_path": "evidence/records/service_resource_export_20260129_114459.json",
-      "format": "json",
       "captured_at": "2026-01-29T11:44:59Z",
-      "status": "inspected",
-      "observations_extracted": 29
+      "format": "json",
+      "status": "parsed",
+      "detail": "",
+      "observations": 29
     },
     {
       "file_id": "evidence_63",
       "file_path": "evidence/databases/customer_data_inventory_20260213.sql",
-      "format": "sql",
       "captured_at": "2026-02-13T07:43:27Z",
-      "status": "inspected",
-      "observations_extracted": 17
+      "format": "sql",
+      "status": "parsed",
+      "detail": "",
+      "observations": 17
     },
     {
       "file_id": "evidence_64",
       "file_path": "evidence/logs/resource_lookup_trace_20260218_083911.log",
-      "format": "log",
       "captured_at": "2026-02-18T08:39:11Z",
-      "status": "inspected",
-      "observations_extracted": 26
+      "format": "log",
+      "status": "parsed",
+      "detail": "",
+      "observations": 26
     },
     {
       "file_id": "evidence_65",
       "file_path": "evidence/records/service_resource_export_20260228_103637.json",
-      "format": "json",
       "captured_at": "2026-02-28T10:36:37Z",
-      "status": "inspected",
-      "observations_extracted": 27
+      "format": "json",
+      "status": "parsed",
+      "detail": "",
+      "observations": 27
     },
     {
       "file_id": "evidence_66",
       "file_path": "evidence/databases/customer_data_inventory_20260310.sql",
-      "format": "sql",
       "captured_at": "2026-03-10T05:38:48Z",
-      "status": "inspected",
-      "observations_extracted": 23
+      "format": "sql",
+      "status": "parsed",
+      "detail": "",
+      "observations": 23
     },
     {
       "file_id": "evidence_67",
       "file_path": "evidence/logs/resource_lookup_trace_20260310_061801.log",
-      "format": "log",
       "captured_at": "2026-03-10T06:18:01Z",
-      "status": "inspected",
-      "observations_extracted": 1
+      "format": "log",
+      "status": "parsed",
+      "detail": "",
+      "observations": 1
     },
     {
       "file_id": "evidence_68",
       "file_path": "evidence/records/service_resource_export_20260320_072349.json",
-      "format": "json",
       "captured_at": "2026-03-20T07:23:49Z",
-      "status": "inspected",
-      "observations_extracted": 25
+      "format": "json",
+      "status": "parsed",
+      "detail": "",
+      "observations": 25
     },
     {
       "file_id": "evidence_69",
       "file_path": "evidence/databases/customer_data_inventory_20260404.sql",
-      "format": "sql",
       "captured_at": "2026-04-04T10:04:19Z",
-      "status": "inspected",
-      "observations_extracted": 18
+      "format": "sql",
+      "status": "parsed",
+      "detail": "",
+      "observations": 18
     },
     {
       "file_id": "evidence_70",
       "file_path": "evidence/logs/resource_lookup_trace_20260414_054007.log",
-      "format": "log",
       "captured_at": "2026-04-14T05:40:07Z",
-      "status": "inspected",
-      "observations_extracted": 24
+      "format": "log",
+      "status": "parsed",
+      "detail": "",
+      "observations": 24
     },
     {
       "file_id": "evidence_71",
       "file_path": "evidence/records/service_resource_export_20260429_083222.json",
-      "format": "json",
       "captured_at": "2026-04-29T08:32:22Z",
-      "status": "inspected",
-      "observations_extracted": 28
+      "format": "json",
+      "status": "parsed",
+      "detail": "",
+      "observations": 28
     },
     {
       "file_id": "evidence_72",
       "file_path": "evidence/databases/customer_data_inventory_20260504.sql",
-      "format": "sql",
       "captured_at": "2026-05-04T09:41:47Z",
-      "status": "inspected",
-      "observations_extracted": 21
+      "format": "sql",
+      "status": "parsed",
+      "detail": "",
+      "observations": 21
     },
     {
       "file_id": "evidence_73",
       "file_path": "evidence/logs/resource_lookup_trace_20260509_104353.log",
-      "format": "log",
       "captured_at": "2026-05-09T10:43:53Z",
-      "status": "inspected",
-      "observations_extracted": 33
+      "format": "log",
+      "status": "parsed",
+      "detail": "",
+      "observations": 33
     },
     {
       "file_id": "evidence_74",
       "file_path": "evidence/records/service_resource_export_20260514_114454.json",
-      "format": "json",
       "captured_at": "2026-05-14T11:44:54Z",
-      "status": "inspected",
-      "observations_extracted": 25
+      "format": "json",
+      "status": "parsed",
+      "detail": "",
+      "observations": 25
     },
     {
       "file_id": "evidence_75",
       "file_path": "evidence/databases/customer_data_inventory_20260524.sql",
-      "format": "sql",
       "captured_at": "2026-05-24T06:39:55Z",
-      "status": "inspected",
-      "observations_extracted": 24
+      "format": "sql",
+      "status": "parsed",
+      "detail": "",
+      "observations": 24
     },
     {
       "file_id": "evidence_76",
       "file_path": "evidence/logs/resource_lookup_trace_20260529_074313.log",
-      "format": "log",
       "captured_at": "2026-05-29T07:43:13Z",
-      "status": "inspected",
-      "observations_extracted": 23
+      "format": "log",
+      "status": "parsed",
+      "detail": "",
+      "observations": 23
     },
     {
       "file_id": "evidence_77",
       "file_path": "evidence/records/service_resource_export_20260603_083457.json",
-      "format": "json",
       "captured_at": "2026-06-03T08:34:57Z",
-      "status": "inspected",
-      "observations_extracted": 27
+      "format": "json",
+      "status": "parsed",
+      "detail": "",
+      "observations": 27
     },
     {
       "file_id": "evidence_78",
       "file_path": "evidence/databases/customer_data_inventory_20260618.sql",
-      "format": "sql",
       "captured_at": "2026-06-18T11:44:03Z",
-      "status": "inspected",
-      "observations_extracted": 19
+      "format": "sql",
+      "status": "parsed",
+      "detail": "",
+      "observations": 19
     },
     {
       "file_id": "evidence_79",
       "file_path": "evidence/logs/resource_lookup_trace_20260623_053726.log",
-      "format": "log",
       "captured_at": "2026-06-23T05:37:26Z",
-      "status": "inspected",
-      "observations_extracted": 29
+      "format": "log",
+      "status": "parsed",
+      "detail": "",
+      "observations": 29
     },
     {
       "file_id": "evidence_80",
       "file_path": "evidence/records/service_resource_export_20260628_062556.json",
-      "format": "json",
       "captured_at": "2026-06-28T06:25:56Z",
-      "status": "inspected",
-      "observations_extracted": 24
+      "format": "json",
+      "status": "parsed",
+      "detail": "",
+      "observations": 24
     },
     {
       "file_id": "evidence_81",
       "file_path": "evidence/databases/customer_data_inventory_20260703.sql",
-      "format": "sql",
       "captured_at": "2026-07-03T07:43:56Z",
-      "status": "inspected",
-      "observations_extracted": 24
+      "format": "sql",
+      "status": "parsed",
+      "detail": "",
+      "observations": 24
     },
     {
       "file_id": "evidence_82",
       "file_path": "evidence/logs/resource_lookup_trace_20260713_093359.log",
-      "format": "log",
       "captured_at": "2026-07-13T09:33:59Z",
-      "status": "inspected",
-      "observations_extracted": 26
+      "format": "log",
+      "status": "parsed",
+      "detail": "",
+      "observations": 26
     },
     {
       "file_id": "evidence_83",
       "file_path": "evidence/records/service_resource_export_20260718_104335.json",
-      "format": "json",
       "captured_at": "2026-07-18T10:43:35Z",
-      "status": "inspected",
-      "observations_extracted": 29
+      "format": "json",
+      "status": "parsed",
+      "detail": "",
+      "observations": 29
     },
     {
       "file_id": "evidence_84",
       "file_path": "evidence/databases/customer_data_inventory_20260723.sql",
-      "format": "sql",
       "captured_at": "2026-07-23T11:43:30Z",
-      "status": "inspected",
-      "observations_extracted": 26
+      "format": "sql",
+      "status": "parsed",
+      "detail": "",
+      "observations": 26
     },
     {
       "file_id": "evidence_85",
       "file_path": "evidence/logs/resource_lookup_trace_20260728_054417.log",
-      "format": "log",
       "captured_at": "2026-07-28T05:44:17Z",
-      "status": "inspected",
-      "observations_extracted": 22
+      "format": "log",
+      "status": "parsed",
+      "detail": "",
+      "observations": 22
     },
     {
       "file_id": "evidence_86",
       "file_path": "evidence/records/service_resource_export_20260807_074104.json",
-      "format": "json",
       "captured_at": "2026-08-07T07:41:04Z",
-      "status": "inspected",
-      "observations_extracted": 23
+      "format": "json",
+      "status": "parsed",
+      "detail": "",
+      "observations": 23
     },
     {
       "file_id": "evidence_87",
       "file_path": "evidence/databases/customer_data_inventory_20260817.sql",
-      "format": "sql",
       "captured_at": "2026-08-17T09:42:50Z",
-      "status": "inspected",
-      "observations_extracted": 19
+      "format": "sql",
+      "status": "parsed",
+      "detail": "",
+      "observations": 19
     },
     {
       "file_id": "evidence_88",
       "file_path": "evidence/logs/resource_lookup_trace_20260822_103910.log",
-      "format": "log",
       "captured_at": "2026-08-22T10:39:10Z",
-      "status": "inspected",
-      "observations_extracted": 22
+      "format": "log",
+      "status": "parsed",
+      "detail": "",
+      "observations": 22
     },
     {
       "file_id": "evidence_89",
       "file_path": "evidence/records/service_resource_export_20260901_053316.json",
-      "format": "json",
       "captured_at": "2026-09-01T05:33:16Z",
-      "status": "inspected",
-      "observations_extracted": 23
+      "format": "json",
+      "status": "parsed",
+      "detail": "",
+      "observations": 23
     },
     {
       "file_id": "evidence_90",
       "file_path": "evidence/databases/customer_data_inventory_20260905.sql",
-      "format": "sql",
       "captured_at": "2026-09-05T07:18:01Z",
-      "status": "inspected",
-      "observations_extracted": 0
+      "format": "sql",
+      "status": "parsed",
+      "detail": "no observations extracted",
+      "observations": 0
     },
     {
       "file_id": "evidence_91",
       "file_path": "evidence/logs/resource_lookup_trace_20260911_074253.log",
-      "format": "log",
       "captured_at": "2026-09-11T07:42:53Z",
-      "status": "inspected",
-      "observations_extracted": 30
+      "format": "log",
+      "status": "parsed",
+      "detail": "",
+      "observations": 30
     },
     {
       "file_id": "evidence_92",
       "file_path": "evidence/records/service_resource_export_20260915_114455.json",
-      "format": "json",
       "captured_at": "2026-09-15T11:44:55Z",
-      "status": "inspected",
-      "observations_extracted": 36
+      "format": "json",
+      "status": "parsed",
+      "detail": "",
+      "observations": 36
     },
     {
       "file_id": "evidence_93",
       "file_path": "evidence/databases/customer_data_inventory_20260916.sql",
-      "format": "sql",
       "captured_at": "2026-09-16T08:37:39Z",
-      "status": "inspected",
-      "observations_extracted": 17
+      "format": "sql",
+      "status": "parsed",
+      "detail": "",
+      "observations": 17
     },
     {
       "file_id": "evidence_94",
       "file_path": "evidence/logs/resource_lookup_trace_20260926_103856.log",
-      "format": "log",
       "captured_at": "2026-09-26T10:38:56Z",
-      "status": "inspected",
-      "observations_extracted": 28
+      "format": "log",
+      "status": "parsed",
+      "detail": "",
+      "observations": 28
     }
+  ],
+  "warnings": [],
+  "unique_resources": 2296,
+  "linked_resources": 2121,
+  "unlinked_resources": [
+    "account_7204",
+    "account_8741",
+    "account_9116",
+    "analytics_061",
+    "analytics_096",
+    "analytics_1072",
+    "analytics_1126",
+    "analytics_1161",
+    "analytics_136",
+    "analytics_1402",
+    "analytics_1544",
+    "analytics_1558",
+    "analytics_1626",
+    "analytics_1733",
+    "analytics_1794",
+    "analytics_1851",
+    "analytics_1895",
+    "analytics_1964",
+    "analytics_2022",
+    "analytics_2072",
+    "analytics_2079",
+    "analytics_2176",
+    "analytics_2265",
+    "analytics_2322",
+    "analytics_2414",
+    "analytics_2463",
+    "analytics_2501",
+    "analytics_2504",
+    "analytics_257",
+    "analytics_2572",
+    "analytics_2601",
+    "analytics_2777",
+    "analytics_2807",
+    "analytics_2977",
+    "analytics_298",
+    "analytics_3108",
+    "analytics_3234",
+    "analytics_3264",
+    "analytics_3454",
+    "analytics_349",
+    "analytics_3678",
+    "analytics_3744",
+    "analytics_3793",
+    "analytics_3845",
+    "analytics_3990",
+    "analytics_4031",
+    "analytics_4051",
+    "analytics_4066",
+    "analytics_4229",
+    "analytics_4273",
+    "analytics_4328",
+    "analytics_439",
+    "analytics_4455",
+    "analytics_4460",
+    "analytics_448",
+    "analytics_4566",
+    "analytics_4574",
+    "analytics_4651",
+    "analytics_4751",
+    "analytics_4800",
+    "analytics_4804",
+    "analytics_5001",
+    "analytics_5053",
+    "analytics_5059",
+    "analytics_5166",
+    "analytics_5221",
+    "analytics_5335",
+    "analytics_542",
+    "analytics_5443",
+    "analytics_5532",
+    "analytics_5589",
+    "analytics_5614",
+    "analytics_5718",
+    "analytics_5779",
+    "analytics_5859",
+    "analytics_5891",
+    "analytics_5893",
+    "analytics_5923",
+    "analytics_5948",
+    "analytics_6077",
+    "analytics_6099",
+    "analytics_6136",
+    "analytics_6191",
+    "analytics_6249",
+    "analytics_6402",
+    "analytics_6565",
+    "analytics_6723",
+    "analytics_6750",
+    "analytics_6830",
+    "analytics_689",
+    "analytics_6980",
+    "analytics_7004",
+    "analytics_7090",
+    "analytics_7102",
+    "analytics_7150",
+    "analytics_7164",
+    "analytics_7254",
+    "analytics_7270",
+    "analytics_7277",
+    "analytics_7283",
+    "analytics_7372",
+    "analytics_7575",
+    "analytics_800",
+    "analytics_8037",
+    "analytics_8091",
+    "analytics_8127",
+    "analytics_8408",
+    "analytics_8425",
+    "analytics_8565",
+    "analytics_8698",
+    "analytics_8746",
+    "analytics_8767",
+    "analytics_8858",
+    "analytics_893",
+    "analytics_8973",
+    "analytics_901",
+    "analytics_9069",
+    "analytics_9103",
+    "analytics_9166",
+    "analytics_9326",
+    "analytics_9394",
+    "analytics_9406",
+    "analytics_9447",
+    "analytics_9500",
+    "analytics_9505",
+    "analytics_9580",
+    "analytics_9681",
+    "analytics_9702",
+    "analytics_9875",
+    "audit_record_1039",
+    "audit_record_1372",
+    "audit_record_1961",
+    "audit_record_2859",
+    "audit_record_2862",
+    "audit_record_3046",
+    "audit_record_3872",
+    "audit_record_4058",
+    "audit_record_436",
+    "audit_record_4405",
+    "audit_record_4438",
+    "audit_record_4647",
+    "audit_record_4738",
+    "audit_record_5270",
+    "audit_record_5868",
+    "audit_record_6252",
+    "audit_record_8558",
+    "audit_record_8918",
+    "audit_record_9226",
+    "audit_record_9285",
+    "audit_record_9341",
+    "data_flow_1368",
+    "data_flow_2893",
+    "data_flow_3444",
+    "data_flow_4305",
+    "data_flow_5877",
+    "data_flow_8933",
+    "search_021",
+    "search_1874",
+    "search_2843",
+    "search_4203",
+    "search_4300",
+    "search_4725",
+    "search_5192",
+    "search_5252",
+    "search_5349",
+    "search_5582",
+    "search_6505",
+    "search_8168",
+    "search_8371",
+    "search_8814",
+    "search_9094",
+    "search_9252",
+    "search_9606",
+    "support_4104",
+    "support_5914"
   ]
 }
