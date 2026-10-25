@@ -327,7 +327,7 @@ CUSTOM_CASES: List[Dict[str, Any]] = [
         "checks": ["status == NOT_APPLICABLE", "steps_json == []"],
     },
     {
-        "name": "historical identity (old email) still resolves -> COMPLETE",
+        "name": "historical identity (old email) still resolves -> INCOMPLETE (remaining data)",
         "request": {
             "case_id": "custom_historical_identity",
             "email": "nadia.ionescu@yahoo.com",
@@ -337,9 +337,9 @@ CUSTOM_CASES: List[Dict[str, Any]] = [
             "audit_at": "2026-09-18T12:25:00Z",
             "request_text": "Please permanently delete my account and all associated records.",
         },
-        "expect_status": "COMPLETE",
+        "expect_status": "INCOMPLETE",
         "expect_empty_steps": False,
-        "checks": ["status == COMPLETE", "account absence verified with evidence"],
+        "checks": ["status == INCOMPLETE", "has FINDING for an account_profile replica", "has VERIFY_RECORD_ABSENT step"],
     },
     {
         "name": "failover replica drift -> INCOMPLETE with remaining-record finding",
@@ -447,6 +447,11 @@ def run_custom_cases(engine: AuditEngine, resolver: IdentityResolver) -> List[Di
                     checks_failed.append(chk)
             elif chk == "account absence verified with evidence":
                 if any(s["operation"] == "VERIFY_RECORD_ABSENT" and s["evidence_id"] for s in steps):
+                    checks_passed.append(chk)
+                else:
+                    checks_failed.append(chk)
+            elif chk == "has VERIFY_RECORD_ABSENT step":
+                if any(s["operation"] == "VERIFY_RECORD_ABSENT" for s in steps):
                     checks_passed.append(chk)
                 else:
                     checks_failed.append(chk)

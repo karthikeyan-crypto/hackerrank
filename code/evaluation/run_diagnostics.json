@@ -3,13 +3,13 @@
   "output_file": "/workspace/output.csv",
   "total_requests": 518,
   "status_counts": {
-    "INCOMPLETE": 364,
-    "COMPLETE": 144,
+    "INCOMPLETE": 365,
+    "COMPLETE": 143,
     "NOT_APPLICABLE": 10
   },
   "evidence_files": 94,
   "observations": 3157,
-  "elapsed_seconds": 0.658,
+  "elapsed_seconds": 0.649,
   "counts": {
     "identities": 850,
     "audit_rows": 306,

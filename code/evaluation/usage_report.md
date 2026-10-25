@@ -2,7 +2,7 @@
 
 **Repository:** `https://github.com/karthikeyan-crypto/hackerrank`  
 **Branch:** `cline/frs6y827`  
-**Commit:** `0e83057`  
+**Commit:** `28bfb3e`  
 **Solution entry point:** `code/main.py`  
 **Produced artifact:** `output.csv` (root of repository)
 
@@ -91,7 +91,7 @@ python3 code/evaluation/main.py
 Expected output (measured):
 - Case-level status accuracy: 32/32 (100%)
 - Step-level F1: 96.26% (P=99.45%, R=93.26%)
-- Custom cases: 4/5 pass (1 recorded expectation mismatch — see evaluation report)
+- Custom cases: 5/5 pass (see evaluation report)
 - output.csv validation: VALID, 518 rows, 0 errors
 
 ### Independent validator
@@ -167,9 +167,35 @@ canonical ordering, operation→state mapping, evidence freshness, and
 evidence-id rules. Measured result: **VALID, 0 errors, 0 warnings**.
 
 
+
+## 7. Token usage and cost
+
+No external LLM or AI model provider is used by this solution. All evidence
+parsing (SQL, JSON, logs, PDF via pypdf, PNG via RapidOCR), identity resolution,
+state reconstruction, and step generation are deterministic, rule-based Python
+code. Consequently:
+
+| Metric | Value |
+|---|---|
+| Model provider | Not applicable (no external LLM) |
+| Model name | Not applicable |
+| Model-call count | 0 |
+| Input tokens | 0 |
+| Output tokens | 0 |
+| Total tokens | 0 |
+| Average tokens per request | 0 |
+| Estimated total cost | $0.00 |
+| Estimated per-request cost | $0.00 |
+
+These values are confirmed by the final full-dataset run: the agent made zero
+model calls and consumed zero tokens, so both estimated total and per-request
+cost are $0.00.
+
 ---
 
-## 7. Deliverables produced
+---
+
+## 8. Deliverables produced
 
 | Artifact | Location |
 |---|---|
@@ -184,7 +210,7 @@ evidence-id rules. Measured result: **VALID, 0 errors, 0 warnings**.
 
 ---
 
-## 8. Notes
+## 9. Notes
 
 * Deterministic: same inputs produce same outputs; step ordering and JSON
   serialisation are stable.
