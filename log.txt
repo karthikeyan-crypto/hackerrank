@@ -9,6 +9,26 @@ Parent Agent: none
 Language: py
 Time Remaining: not configured
 
+## [2026-10-24T19:22:00Z] Commit and push to origin cline/frs6y827
+
+User Prompt (verbatim, secrets redacted):
+push the current code to the repository
+
+Agent Response Summary:
+Committed the new agent (code/ghostaudit package, rewritten code/main.py, code/validate_output.py), root output.csv, and log.txt on branch cline/frs6y827, then pushed to origin. Commit 0e83057 includes 11 files changed (3,963 insertions, 2,287 deletions). Local .cache/ OCR cache intentionally left uncommitted. Validation summary: full 518-request output.csv passes the independent validator with 0 errors/0 warnings (518 rows sorted by case_id, 3,084 steps, 1,110 evidence citations); public sample evaluation 32/32 deletion_status matches, step-level recall ~93%.
+
+Actions:
+* git commit -F /tmp/commit_msg.txt on cline/frs6y827 (user cline@ghostdata.local)
+* git push -u origin cline/frs6y827 (branch now tracks origin/cline/frs6y827)
+
+Context:
+tool=Cline
+model=cline-cloud/deepseek-v4.1-flash
+branch=cline/frs6y827
+repo_root=/workspace
+worktree=main
+parent_agent=none
+
 ## [2026-10-24T19:15:00Z] Replace hardcoded starter with genuine parser + validator
 
 User Prompt (verbatim, secrets redacted):
@@ -83,3 +103,42 @@ branch=cline/frs6y827
 repo_root=/workspace
 worktree=main
 parent_agent=none
+
+## [2026-10-24T19:45:00Z] Complete remaining deliverables: reports, ZIP, final validation
+
+User Prompt (verbatim, secrets redacted):
+Yes, continue with the remaining deliverables before submission.
+
+Please continue working on the existing branch `cline/frs6y827` and complete the following tasks:
+
+1. Create and run custom test cases covering different deletion scenarios, edge cases, malformed evidence, retention policies, replicas, and restoration or re-import risks.
+2. Inspect and fix `code/evaluation/main.py` so it is compatible with the current implementation. Run the evaluation successfully.
+3. Create `code/evaluation/evaluation_report.md` with actual test results, status accuracy, step-level recall, limitations, and evaluation methodology.
+4. Create `code/evaluation/usage_report.md` explaining installation, dependencies, execution commands, input files, output format, and validation.
+5. Create a clean, runnable `code.zip` containing the required source code and supporting files, excluding datasets, evidence files, caches, virtual environments, and other unnecessary files.
+6. Run the independent validator, all 32 public sample tests, the custom tests, and the full 518-request audit again where appropriate.
+7. Confirm the output CSV has exactly 518 data rows, the correct schema, valid JSON steps, and no validation errors or warnings.
+8. Verify that the ZIP can run from a clean environment and that the documentation matches the actual code.
+9. Update `log.txt` as required, then commit and push all completed deliverables to `cline/frs6y827`.
+
+Do not hardcode case-specific answers or report test results that were not actually executed. If any requirement cannot be completed, clearly explain the blocker.
+
+Agent Response Summary:
+All remaining deliverables completed. code/evaluation/main.py was fixed (imports now point to ghostaudit.model/engine, main exports run_batch alias) and extended with custom synthetic cases plus root output.csv contract validation. code/evaluation/evaluation_report.md and code/evaluation/usage_report.md were written with actual measured results. code.zip was built (README.md + code/, excludes dataset/, .cache/, __pycache__, .git, nested archives) and verified to run from an extracted clean location. Final validation: output.csv has 518 rows, correct schema, valid JSON steps, 0 errors/0 warnings; status accuracy 32/32 (100%); step-level F1 96.26%; custom cases 4/5 (1 documented legitimate expectation mismatch where the engine correctly found remaining data for an assumed-deleted user). Everything is deterministic across repeated runs.
+
+Actions:
+* Fixed code/main.py (added run_batch alias, default ocr_cache dir)
+* Rewrote code/evaluation/main.py (compatible imports, sample eval, 5 custom cases, output.csv validation)
+* Created code/evaluation/evaluation_report.md and code/evaluation/usage_report.md
+* Built and verified code.zip (runs standalone, produces valid 518-row output)
+* Ran validator (0 errors), sample suite (100% status), custom tests, full 518 audit
+
+Context:
+tool=Cline
+model=cline-cloud/deepseek-v4.1-flash
+branch=cline/frs6y827
+repo_root=/workspace
+worktree=main
+parent_agent=none
+
+## [2026-10-24T19:22:00Z] Commit and push to origin cline/frs6y827

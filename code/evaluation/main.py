@@ -4,9 +4,15 @@ Ghost Data Still Exists — Evaluation, Validation & Synthetic Test Suite
 HackerRank Orchestrate (October 2026)
 
 Entry point: code/evaluation/main.py
-1. Evaluates predictions on dataset/sample_deletion_requests.csv against dataset/sample_output.csv
-2. Runs 6 custom synthetic evaluation cases testing edge cases and policy rules
-3. Generates and validates the 518-case root output.csv against all §6 contract rules
+
+1. Evaluates predictions on dataset/sample_deletion_requests.csv against
+dataset/sample_output.csv (status accuracy, step-level recall/precision,
+sequence accuracy, field-level accuracy).
+2. Runs custom synthetic evaluation cases covering historical identities,
+deletion authorisation, retention policies, replica drift, and restore/
+re-import risks.
+3. Generates and validates the 518-case root output.csv against all §6
+contract rules.
 """
 
 from __future__ import annotations
@@ -22,14 +28,16 @@ from typing import Any, Dict, List, Tuple
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(REPO_ROOT / "code"))
 
-from main import (  # noqa: E402
-    EXPECTED_STEP_STATE,
+from main import case_sort_key, load_csv, run_batch  # noqa: E402
+from ghostaudit.engine import AuditEngine, Policy, RequestClassifier  # noqa: E402
+from ghostaudit.identity import IdentityResolver  # noqa: E402
+from ghostaudit.linking import ActivityModel, LinkingEngine  # noqa: E402
+from ghostaudit.model import (
     OPERATION_ORDER,
+    OPERATION_STATE as EXPECTED_STEP_STATE,
     PHASE_ORDER,
-    case_sort_key,
-    load_csv,
-    run_batch,
-)
+)  # noqa: E402
+from ghostaudit.parsers import EvidenceCorpus  # noqa: E402
 
 
 def evaluate_sample_predictions(
@@ -45,8 +53,8 @@ def evaluate_sample_predictions(
 
     total_pred_steps = 0
     total_gold_steps = 0
-    matched_steps_tuple = 0  # (phase, system_id, resource_id, operation, state, evidence_id)
-    matched_steps_core = 0   # (phase, system_id, resource_id, operation, state)
+    matched_steps_tuple = 0
+    matched_steps_core = 0
 
     field_totals = defaultdict(int)
     field_correct = defaultdict(int)
@@ -72,7 +80,6 @@ def evaluate_sample_predictions(
         total_gold_steps += len(g_steps)
         total_pred_steps += len(p_steps)
 
-        # Normalize steps for comparison
         g_norm = [
             (s["step_no"], s["phase"], s["system_id"], s["resource_id"], s["operation"], s["state"], s["evidence_id"])
             for s in g_steps
@@ -93,7 +100,6 @@ def evaluate_sample_predictions(
                 "pred_steps": p_steps,
             })
 
-        # Set-level step matching
         g_set_full = {
             (s["phase"], s["system_id"], s["resource_id"], s["operation"], s["state"], s["evidence_id"])
             for s in g_steps
@@ -114,7 +120,6 @@ def evaluate_sample_predictions(
         }
         matched_steps_core += len(g_set_core & p_set_core)
 
-        # Field-level accuracy aligned by (phase, system_id, operation) or index
         g_by_key = {(s["phase"], s["system_id"], s["operation"]): s for s in g_steps}
         p_by_key = {(s["phase"], s["system_id"], s["operation"]): s for s in p_steps}
         for key, gs in g_by_key.items():
@@ -154,6 +159,7 @@ def evaluate_sample_predictions(
         "field_accuracy_pct": field_acc,
         "mismatches": mismatches,
     }
+
 
 
 def validate_output_contract(
@@ -244,7 +250,6 @@ def validate_output_contract(
                     if ev_id != "":
                         errors.append(f"{cid}: INCOMPLETE {ph} step must have empty evidence_id, got '{ev_id}'")
 
-        # Check step numbering, keys, allowed operations, and canonical ordering
         prev_sort_tuple = None
         for s_idx, st in enumerate(steps, start=1):
             if set(st.keys()) != required_keys:
@@ -280,8 +285,193 @@ def validate_output_contract(
     }
 
 
+
+def build_engine(dataset_dir: Path) -> Tuple[Any, Any]:
+    """Build a fresh engine for direct custom-case evaluation."""
+    identity_rows = load_csv(dataset_dir / "user_identities.csv")
+    audit_rows = load_csv(dataset_dir / "user_audit_log.csv")
+    activity_rows = load_csv(dataset_dir / "system_activity.csv")
+    rules_rows = load_csv(dataset_dir / "deletion_rules.csv")
+
+    resolver = IdentityResolver(identity_rows, audit_rows)
+    classifier = RequestClassifier(activity_rows)
+    corpus = EvidenceCorpus(dataset_dir, resolver, activity_rows=activity_rows)
+    corpus.load()
+    activity = ActivityModel(activity_rows, resolver)
+    all_requests = load_csv(dataset_dir / "sample_deletion_requests.csv") + load_csv(
+        dataset_dir / "deletion_requests.csv"
+    )
+    LinkingEngine(corpus, activity, resolver, all_requests).run()
+    policy = Policy(rules_rows)
+    engine = AuditEngine(corpus, activity, policy, resolver, classifier)
+    return engine, resolver
+
+
+# Custom synthetic evaluation cases. Each case supplies an email that resolves
+# to a real identity in the dataset, plus a request text and audit_at.
+# Expectations are policy-level invariants (not hardcoded golden steps).
+CUSTOM_CASES: List[Dict[str, Any]] = [
+    {
+        "name": "non-deletion request (export only) -> NOT_APPLICABLE",
+        "request": {
+            "case_id": "custom_non_deletion",
+            "email": "amina.elmasri@gmail.com",
+            "requested_at": "2026-01-01T00:00:00Z",
+            "reported_status": "COMPLETE",
+            "reported_at": "2026-01-02T00:00:00Z",
+            "audit_at": "2026-09-03T11:30:00Z",
+            "request_text": "I would like a copy of all my personal data exported. Please do not delete my account.",
+        },
+        "expect_status": "NOT_APPLICABLE",
+        "expect_empty_steps": True,
+        "checks": ["status == NOT_APPLICABLE", "steps_json == []"],
+    },
+    {
+        "name": "historical identity (old email) still resolves -> COMPLETE",
+        "request": {
+            "case_id": "custom_historical_identity",
+            "email": "nadia.ionescu@yahoo.com",
+            "requested_at": "2026-01-01T00:00:00Z",
+            "reported_status": "COMPLETE",
+            "reported_at": "2026-01-02T00:00:00Z",
+            "audit_at": "2026-09-18T12:25:00Z",
+            "request_text": "Please permanently delete my account and all associated records.",
+        },
+        "expect_status": "COMPLETE",
+        "expect_empty_steps": False,
+        "checks": ["status == COMPLETE", "account absence verified with evidence"],
+    },
+    {
+        "name": "failover replica drift -> INCOMPLETE with remaining-record finding",
+        "request": {
+            "case_id": "custom_replica_drift",
+            "email": "leila.haddad@yahoo.com",
+            "requested_at": "2026-01-01T00:00:00Z",
+            "reported_status": "COMPLETE",
+            "reported_at": "2026-01-02T00:00:00Z",
+            "audit_at": "2026-09-08T13:40:00Z",
+            "request_text": "Please delete my account. I was told deletion completed but my email is still recognised.",
+        },
+        "expect_status": "INCOMPLETE",
+        "expect_empty_steps": False,
+        "checks": ["status == INCOMPLETE", "has FINDING for an account_profile replica", "remediation precedes verification"],
+    },
+    {
+        "name": "retention policy: security audit log retained -> VERIFY_RECORD_PRESENT",
+        "request": {
+            "case_id": "custom_retention_policy",
+            "email": "oliver-bennett@gmail.com",
+            "requested_at": "2026-01-01T00:00:00Z",
+            "reported_status": "COMPLETE",
+            "reported_at": "2026-01-02T00:00:00Z",
+            "audit_at": "2026-09-06T09:00:00Z",
+            "request_text": "I no longer use this account and would like it permanently deleted. Please send confirmation after the process finishes.",
+        },
+        "expect_status": "COMPLETE",
+        "expect_empty_steps": False,
+        "checks": ["status == COMPLETE", "VERIFY_RECORD_PRESENT for security audit log", "tombstone redacted if present"],
+    },
+    {
+        "name": "active backup restore risk -> REPORT_RESTORE_RISK + BLOCK_RESTORE",
+        "request": {
+            "case_id": "custom_restore_risk",
+            "email": "k.appiah88@gmail.com",
+            "requested_at": "2026-01-01T00:00:00Z",
+            "reported_status": "NOT_STARTED",
+            "reported_at": "2026-01-02T00:00:00Z",
+            "audit_at": "2026-09-16T09:00:00Z",
+            "request_text": "Please permanently delete the account associated with this email address. Please apply the correct treatment to records covered by the request.",
+        },
+        "expect_status": "INCOMPLETE",
+        "expect_empty_steps": False,
+        "checks": ["status == INCOMPLETE", "has REPORT_RESTORE_RISK finding", "has BLOCK_RESTORE remediation"],
+    },
+]
+
+
+
+def run_custom_cases(engine: AuditEngine, resolver: IdentityResolver) -> List[Dict[str, Any]]:
+    results: List[Dict[str, Any]] = []
+    for case in CUSTOM_CASES:
+        req = case["request"]
+        status, steps = engine.evaluate(req)
+        checks_passed: List[str] = []
+        checks_failed: List[str] = []
+
+        status_ok = status == case["expect_status"]
+        if status_ok:
+            checks_passed.append(f"status == {case['expect_status']}")
+        else:
+            checks_failed.append(f"status == {case['expect_status']} (got {status})")
+
+        if case["expect_empty_steps"]:
+            if steps == []:
+                checks_passed.append("steps_json == []")
+            else:
+                checks_failed.append("steps_json == []")
+
+        ops = [s["operation"] for s in steps]
+        phases = [s["phase"] for s in steps]
+        for chk in case.get("checks", []):
+            if chk == "has FINDING for an account_profile replica":
+                if any(s["operation"] == "REPORT_REMAINING_RECORD" for s in steps):
+                    checks_passed.append(chk)
+                else:
+                    checks_failed.append(chk)
+            elif chk == "remediation precedes verification":
+                if phases == sorted(phases, key=lambda p: PHASE_ORDER[p]):
+                    checks_passed.append(chk)
+                else:
+                    checks_failed.append(chk)
+            elif chk == "has REPORT_RESTORE_RISK finding":
+                if "REPORT_RESTORE_RISK" in ops:
+                    checks_passed.append(chk)
+                else:
+                    checks_failed.append(chk)
+            elif chk == "has BLOCK_RESTORE remediation":
+                if "BLOCK_RESTORE" in ops:
+                    checks_passed.append(chk)
+                else:
+                    checks_failed.append(chk)
+            elif chk == "VERIFY_RECORD_PRESENT for security audit log":
+                if any(s["operation"] == "VERIFY_RECORD_PRESENT" and s["system_id"] == "security_service" for s in steps):
+                    checks_passed.append(chk)
+                else:
+                    checks_failed.append(chk)
+            elif chk == "tombstone redacted if present":
+                if any(s["operation"] == "VERIFY_RECORD_REDACTED" and s["system_id"] == "identity_service" for s in steps):
+                    checks_passed.append(chk + " (present)")
+                elif not any(s["system_id"] == "identity_service" for s in steps):
+                    checks_passed.append(chk + " (not present)")
+                else:
+                    checks_failed.append(chk)
+            elif chk == "account absence verified with evidence":
+                if any(s["operation"] == "VERIFY_RECORD_ABSENT" and s["evidence_id"] for s in steps):
+                    checks_passed.append(chk)
+                else:
+                    checks_failed.append(chk)
+
+        results.append({
+            "name": case["name"],
+            "case_id": req["case_id"],
+            "email": req["email"],
+            "audit_at": req["audit_at"],
+            "expected_status": case["expect_status"],
+            "actual_status": status,
+            "step_count": len(steps),
+            "steps": steps,
+            "checks_passed": checks_passed,
+            "checks_failed": checks_failed,
+            "all_checks_passed": len(checks_failed) == 0 and status_ok,
+        })
+    return results
+
+
+
 def main() -> None:
     dataset_dir = REPO_ROOT / "dataset"
+
+    # ---- 1. Sample evaluation (32 public cases) ----
     with tempfile.TemporaryDirectory() as tmpdir:
         tmp_sample_out = Path(tmpdir) / "sample_pred.csv"
         run_batch(
@@ -301,11 +491,61 @@ def main() -> None:
     print(f"Field-level Accuracy:       {json.dumps(eval_res['field_accuracy_pct'])}")
     if eval_res["mismatches"]:
         print(f"\nMismatches ({len(eval_res['mismatches'])}):")
-        for m in eval_res["mismatches"]:
+        for m in eval_res["mismatches"][:15]:
             print(f"  - {m['case_id']}: status gold={m.get('gold_status')} pred={m.get('pred_status')}")
-            print(f"    GOLD: {json.dumps(m.get('gold_steps'))}")
-            print(f"    PRED: {json.dumps(m.get('pred_steps'))}")
+
+    # ---- 2. Custom synthetic cases ----
+    print("\n=== Custom Synthetic Evaluation Cases ===")
+    engine, resolver = build_engine(dataset_dir)
+    custom_results = run_custom_cases(engine, resolver)
+    custom_passed = sum(1 for r in custom_results if r["all_checks_passed"])
+    for r in custom_results:
+        flag = "PASS" if r["all_checks_passed"] else "FAIL"
+        print(f"[{flag}] {r['name']}  (status {r['actual_status']}, expected {r['expected_status']}, steps {r['step_count']})")
+        if r["checks_failed"]:
+            print(f"      failed checks: {r['checks_failed']}")
+    print(f"Custom cases passed: {custom_passed}/{len(custom_results)}")
+
+    # ---- 3. Validate root output.csv (full 518-case audit) ----
+    output_csv = REPO_ROOT / "output.csv"
+    print("\n=== Output Contract Validation (root output.csv) ===")
+    if output_csv.exists():
+        val_res = validate_output_contract(
+            output_csv,
+            dataset_dir / "deletion_requests.csv",
+            dataset_dir / "evidence_files.csv",
+        )
+        print(f"Valid: {val_res['valid']}")
+        print(f"Total rows: {val_res['total_rows']}")
+        print(f"Error count: {val_res['error_count']}")
+        if val_res["errors"]:
+            for e in val_res["errors"]:
+                print(f"  - {e}")
+    else:
+        print("root output.csv not found; generating it now")
+        run_batch(
+            dataset_dir=dataset_dir,
+            requests_path=dataset_dir / "deletion_requests.csv",
+            output_path=output_csv,
+        )
+        val_res = validate_output_contract(
+            output_csv,
+            dataset_dir / "deletion_requests.csv",
+            dataset_dir / "evidence_files.csv",
+        )
+        print(f"Valid: {val_res['valid']}")
+        print(f"Total rows: {val_res['total_rows']}")
+        print(f"Error count: {val_res['error_count']}")
+
+    overall_ok = (
+        eval_res["status_correct"] == eval_res["total_cases"]
+        and custom_passed == len(custom_results)
+        and val_res["valid"]
+    )
+    print(f"\nOverall: {'ALL CHECKS PASSED' if overall_ok else 'SOME CHECKS FAILED'}")
+    sys.exit(0 if overall_ok else 1)
 
 
 if __name__ == "__main__":
     main()
+

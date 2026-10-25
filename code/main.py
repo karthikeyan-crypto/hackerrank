@@ -81,6 +81,8 @@ def run(
     diagnostics_path: Optional[Path] = None,
     ocr_cache: Optional[Path] = None,
 ) -> Dict[str, Any]:
+    if ocr_cache is None:
+        ocr_cache = Path(__file__).resolve().parent.parent / ".cache" / "ocr"
     t0 = time.time()
     requests = load_csv(requests_path)
 
@@ -138,6 +140,10 @@ def run(
         diagnostics_path.parent.mkdir(parents=True, exist_ok=True)
         diagnostics_path.write_text(json.dumps(report, indent=2), encoding="utf-8")
     return report
+
+
+# Backwards-compatible alias used by code/evaluation/main.py.
+run_batch = run
 
 
 def main() -> int:
