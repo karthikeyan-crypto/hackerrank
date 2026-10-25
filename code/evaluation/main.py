@@ -339,7 +339,7 @@ CUSTOM_CASES: List[Dict[str, Any]] = [
         },
         "expect_status": "INCOMPLETE",
         "expect_empty_steps": False,
-        "checks": ["status == INCOMPLETE", "has FINDING for an account_profile replica", "has VERIFY_RECORD_ABSENT step"],
+        "checks": ["status == INCOMPLETE", "has REPORT_REMAINING_RECORD on support_platform support_002", "has VERIFY_RECORD_ABSENT for account_service account_010"],
     },
     {
         "name": "failover replica drift -> INCOMPLETE with remaining-record finding",
@@ -452,6 +452,16 @@ def run_custom_cases(engine: AuditEngine, resolver: IdentityResolver) -> List[Di
                     checks_failed.append(chk)
             elif chk == "has VERIFY_RECORD_ABSENT step":
                 if any(s["operation"] == "VERIFY_RECORD_ABSENT" for s in steps):
+                    checks_passed.append(chk)
+                else:
+                    checks_failed.append(chk)
+            elif chk == "has VERIFY_RECORD_ABSENT for account_service account_010":
+                if any(s["operation"] == "VERIFY_RECORD_ABSENT" and s["system_id"] == "account_service" and s["resource_id"] == "account_010" for s in steps):
+                    checks_passed.append(chk)
+                else:
+                    checks_failed.append(chk)
+            elif chk == "has REPORT_REMAINING_RECORD on support_platform support_002":
+                if any(s["operation"] == "REPORT_REMAINING_RECORD" and s["system_id"] == "support_platform" and s["resource_id"] == "support_002" for s in steps):
                     checks_passed.append(chk)
                 else:
                     checks_failed.append(chk)
